@@ -1,11 +1,15 @@
-import { Hono } from 'hono'
-const app = new Hono()
+import { Hono } from "hono";
+import { logger } from "hono/logger";
+import { expensesRoute } from "./routes/expenses";
 
-app.get('/test', c => {
- return c.json({
-  "message": "Test message!",
- });
+const app = new Hono();
+
+app.get("/test", (c) => {
+  return c.json({
+    message: "Test message!",
+  });
 });
 
+app.route("/api/expenses", expensesRoute);
 
-export default app
+export default app;
