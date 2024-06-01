@@ -6,10 +6,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [totalSpent, setTotalSpent] = useState(0);
+
+  useEffect(() => {
+    fetch("/api/expenses/total-spent")
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalSpent(data.total);
+      });
+  }, []);
   return (
     <>
       <Card className="w-[350px] m-auto">
