@@ -8,15 +8,18 @@ import {
 import "./App.css";
 import { useEffect, useState } from "react";
 
+import { api } from "@/lib/api";
+
 function App() {
   const [totalSpent, setTotalSpent] = useState(0);
 
   useEffect(() => {
-    fetch("/api/expenses/total-spent")
-      .then((res) => res.json())
-      .then((data) => {
-        setTotalSpent(data.total);
-      });
+    const fetchTotal = async () => {
+      const res = await api.expenses["total-spent"].$get();
+      const data = await res.json();
+      setTotalSpent(data.total);
+    };
+    fetchTotal();
   }, []);
   return (
     <>
